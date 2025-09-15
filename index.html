@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Smakowy Furgon - Menu</title>
+  <style>
+    :root {
+      --bg: #f5f5dc;
+      --accent: #264e36;
+      --muted: #7a6b5a;
+      --card: #fff;
+    }
+    body { margin:0; font-family:Arial,sans-serif; background:var(--bg); color:#222; }
+    .welcome {
+      height:100vh; display:flex; flex-direction:column;
+      justify-content:center; align-items:center; text-align:center;
+    }
+    .welcome h1 { color:var(--accent); font-size:28px; margin:10px 0; }
+    .logo { max-width:40%; height:auto; }
+    .container { max-width:720px; margin:0 auto; padding:18px; }
+    .category { margin-top:20px; }
+    .category h2 { color:var(--accent); border-bottom:1px solid #ddd; padding-bottom:5px; }
+    .card {
+      display:flex; gap:12px; align-items:center;
+      background:var(--card); padding:12px;
+      border-radius:10px; box-shadow:0 1px 0 rgba(0,0,0,0.05);
+      margin-bottom:12px; position:relative;
+    }
+    .card img { width:120px; height:90px; object-fit:cover; border-radius:8px; }
+    .dish-title { font-weight:700; color:var(--accent); }
+    .price { margin-left:auto; font-weight:700; color:#2b5b3a; }
+
+    /* Wyprzedane */
+    .sold-out {
+      opacity:0.5; background:#ddd !important; color:#777 !important;
+    }
+    .sold-out .dish-title, .sold-out .price { color:#777 !important; }
+    .sold-out .reserve-btn {
+      background:#999 !important; cursor:not-allowed; pointer-events:none;
+    }
+    .sold-out::after {
+      content:"WYPRZEDANE";
+      position:absolute; top:40%; left:50%; transform:translate(-50%,-50%);
+      background:#555; color:#fff; padding:6px 12px; border-radius:6px;
+      font-weight:bold; font-size:18px; pointer-events:none;
+    }
+
+    .reserve-btn {
+      background:var(--accent); color:#fff;
+      border:none; padding:8px 14px; border-radius:8px;
+      cursor:pointer; font-weight:bold; transition:background 0.3s;
+    }
+    .reserve-btn:hover { background:#1d3b29; }
+    .contact-btn {
+      display:none; background:#d94a2d; color:#fff;
+      text-decoration:none; padding:8px 14px; border-radius:8px; font-weight:bold;
+    }
+
+    footer {
+      text-align:center; margin:20px 0; color:var(--muted); font-size:14px;
+    }
+    footer a {
+      color:var(--accent); text-decoration:none; margin:0 8px; 
+      display:inline-flex; align-items:center; gap:6px; font-weight:bold;
+    }
+    footer a:hover { text-decoration:underline; }
+
+    .map {
+      width:100%; height:200px; border-radius:8px; border:1px solid #ddd;
+      display:block; margin-top:20px;
+    }
+    .icon {
+      width:18px; height:18px; fill:var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <!-- Powitalny ekran -->
+  <div id="welcome" class="welcome">
+    <img src="logo.png" alt="Smakowy Furgon logo" class="logo">
+    <h1>Dziękujemy, że jesteś z nami!</h1>
+  </div>
+
+  <!-- Strona główna -->
+  <div id="main" style="display:none;">
+    <div class="container" id="menu-container">Ładowanie menu...</div>
+
+    <!-- Mapa -->
+    <div class="container">
+      <h3>Nasza lokalizacja:</h3>
+      <iframe class="map" 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2467.642315640583!2d19.5739648!3d51.79442319999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471bcd8f8c80d0e7%3A0xaa7dffac37f9604f!2sSMAKOWY%20FURGON!5e0!3m2!1spl!2spl!4v1757697121963!5m2!1spl!2spl" 
+        allowfullscreen="" loading="lazy">
+      </iframe>
+    </div>
+
+    <!-- Stopka -->
+    <footer>
+      <p>
+        <a href="tel:+48882911372">📞 882 911 372</a> | 
+        <a href="mailto:smakowyf@gmail.com">✉️ smakowyf@gmail.com</a>
+      </p>
+      <p>
+        <a href="https://www.facebook.com/people/Smakowy-Furgon/61576729784920/" target="_blank">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2v-3h2v-2c0-2 1.2-3 3-3 .9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2v1.7h2.3l-.4 3h-1.9v7A10 10 0 0 0 22 12z"/></svg>
+          Facebook
+        </a>
+        <a href="https://www.tiktok.com/@smakowy_furgon" target="_blank">
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M41,15c-2.1,0-4.1-0.7-5.8-1.8c-1.7-1.2-3-2.9-3.7-4.9c-0.3-1-0.5-2.1-0.5-3.2h-5v26c0,2.5-1.1,4.9-3,6.6c-1.8,1.6-4.2,2.5-6.7,2.4c-2.1-0.1-4.2-1-5.7-2.6c-1.5-1.5-2.3-3.6-2.3-5.7c0-3.7,2.5-6.9,6-7.8v5.2c0,0.9,0.7,1.6,1.6,1.7c1.5,0.1,2.8-1.2,2.8-2.7V5h9c0,1.8,0.3,3.6,0.9,5.3c0.6,1.7,1.6,3.2,2.9,4.5c2.6,2.6,6,4,9.6,4V15H41z"/></svg>
+          TikTok
+        </a>
+      </p>
+      <p>&copy; 2025 Smakowy Furgon</p>
+    </footer>
+  </div>
+
+  <!-- Skrypty -->
+  <script>
+    // Ekran powitalny
+    setTimeout(() => {
+      document.getElementById("welcome").style.display = "none";
+      document.getElementById("main").style.display = "block";
+    }, 2000);
+
+    function showContact(btn) {
+      btn.style.display = "none";
+      const link = btn.nextElementSibling;
+      if (link) link.style.display = "inline-block";
+    }
+
+    async function loadMenu() {
+      try {
+        const res = await fetch("https://script.google.com/macros/s/AKfycbztMPj8aamherp82OBxqhPsDS5g5REm0Eonto1e4T9gUV8Q_1g8h_6MzSYHrmowBw4Z1A/exec");
+        const data = await res.json();
+
+        // Grupowanie po kategorii
+        const grouped = {};
+        data.forEach(item => {
+          if (!grouped[item.Kategoria]) grouped[item.Kategoria] = [];
+          grouped[item.Kategoria].push(item);
+        });
+
+        let html = "";
+        for (const kat in grouped) {
+          html += `<div class="category"><h2>${kat}</h2>`;
+          grouped[kat].forEach(item => {
+            html += `
+              <div class="card ${item.Status === 'Wyprzedane' ? 'sold-out' : ''}">
+                <img src="${item.Obrazek}" alt="${item.Nazwa}">
+                <div>
+                  <div class="dish-title">${item.Nazwa}</div>
+                  <div style="font-size:14px; color:var(--muted)">${item.Opis}</div>
+                  <div style="margin-top:5px; font-size:13px; color:${item.Status === 'Wyprzedane' ? '#777' : 'green'}">${item.Status}</div>
+                </div>
+                <div class="price">${item.Cena}</div>
+                <button class="reserve-btn" ${item.Status === 'Wyprzedane' ? 'disabled' : ''} onclick="showContact(this)">Zarezerwuj</button>
+                <a href="tel:+48882911372" class="contact-btn">📞 882 911 372</a>
+              </div>
+            `;
+          });
+          html += `</div>`;
+        }
+
+        document.getElementById("menu-container").innerHTML = html;
+      } catch (e) {
+        document.getElementById("menu-container").innerHTML = "❌ Nie udało się wczytać menu";
+        console.error(e);
+      }
+    }
+    loadMenu();
+  </script>
+</body>
+</html>
